@@ -1,0 +1,30 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    public int solve(TreeNode A) {
+        //Assumption: Given root node(A), count the number of nodes in the tree.
+
+        // BASE CASE
+        if(A == null){
+            return 0;
+        }
+
+        // MAIN LOGIC
+
+        int countLST = solve(A.left);
+        int countRST = solve(A.right);
+
+        return 1 + countLST + countRST;
+    }
+}
