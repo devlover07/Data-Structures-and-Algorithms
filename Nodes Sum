@@ -1,0 +1,30 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    public int solve(TreeNode A) {
+        // ASSUMPTION: Given root node(A) of a BT, find sum of all the nodes.
+
+        // BASE CASE
+        if(A == null){
+            return 0;
+        }
+
+        // MAIN LOGIC
+
+        int sumLST = solve(A.left);
+        int sumRST = solve(A.right);
+
+        return (A.val + sumLST + sumRST);
+    }
+}
