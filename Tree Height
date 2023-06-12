@@ -1,0 +1,30 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    private int max(int a, int b){
+        return (a>b?a:b);
+    }
+
+    public int solve(TreeNode A) {
+
+        if(A == null){
+            return 0;
+        }
+
+        int lh = solve(A.left);
+        int rh = solve(A.right);
+
+        return (1+max(lh, rh));
+    }
+}
