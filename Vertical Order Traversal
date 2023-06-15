@@ -1,0 +1,106 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+
+class Pair{
+    TreeNode node;
+    int level;
+
+    Pair(TreeNode node, int level){
+        this.node = node;
+        this.level = level;
+    }
+
+    public TreeNode getNode(){
+        return this.node;
+    }
+
+    public int getLevel(){
+        return this.level;
+    }
+}
+public class Solution {
+    public ArrayList<ArrayList<Integer>> verticalOrderTraversal(TreeNode A) {
+
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        HashMap<Integer, ArrayList<Integer>> hm = new HashMap<>();
+        // Pair<TreeNode, Integer> pair = new Pair<TreeNode, Integer>();
+
+        // Pair pair = new Pair();
+        Queue<Pair> q = new LinkedList<>();
+        int lev;
+        int data;
+        TreeNode node;
+        int minL = Integer.MAX_VALUE;
+        int maxL = Integer.MIN_VALUE;
+        ArrayList<Integer> hmV;
+
+        q.add(new Pair(A, 0));
+        // q.add(null);
+
+        while(q.size() > 0){
+            Pair pair = q.poll();
+
+            // For level order traversal problem
+            // if(pair == null){
+            //     q.add(null);
+            //     continue;
+            // }
+            // q.remove();
+            node = pair.getNode();
+            data = node.val;
+            lev = pair.getLevel();
+
+            if(lev>maxL){
+                maxL = lev;
+            }
+
+            if(lev<minL){
+                minL = lev;
+            }
+
+            if(!hm.containsKey(lev)){
+                hm.put(lev, new ArrayList<Integer>());
+            }
+
+            hm.get(lev).add(data);
+
+            // Commented lines are alternative to above 4 lines of code.
+            // if(hm.containsKey(lev)){
+            //     hmV = hm.get(lev);
+            //     hmV.add(data);
+            // } else {
+            //     hm.put(lev, new ArrayList<Integer>(Arrays.asList(data)));
+            // }
+
+            if(node.left != null){
+                q.add(new Pair(node.left, lev-1));
+            }
+
+            if(node.right != null){
+                q.add(new Pair(node.right, lev+1));
+            }
+        }
+
+        lev = minL;
+        int size;
+
+        while(lev<=maxL){
+            hmV = hm.get(lev);
+            res.add(hmV);
+            lev++;
+        }
+
+        return res;
+    }
+}
